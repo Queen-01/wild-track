@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'org.wildtracker'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'com.sparkjava', name: 'spark-core', version: '2.5.5'
+    implementation 'com.sparkjava:spark-template-velocity:2.5.5'
+    implementation 'org.slf4j:slf4j-simple:1.7.21'
+    testImplementation group: 'junit', name: 'junit', version: '4.+'
+    // https://mvnrepository.com/artifact/org.sql2o/sql2o
+    implementation group: 'org.sql2o', name: 'sql2o', version: '1.5.4'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.2' // ADD ME FOR POSTGRES VERSION 10.x
+
+}
+
+test {
+    useJUnitPlatform()
+}
