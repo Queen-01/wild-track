@@ -3,9 +3,8 @@ package models;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.Properties;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AnimalTest {
     @Rule
@@ -39,7 +38,7 @@ public class AnimalTest {
     public void save_CorrectlyIntoDataBase(){
         Animal testAnimal = new Animal("Tiger");
         testAnimal.save();
-        assertEquals(false, Animal.all().get(0).equals(testAnimal));
+        assertEquals(true, Animal.all().get(0).equals(testAnimal));
     }
 
     @Test
@@ -63,5 +62,23 @@ public class AnimalTest {
         Animal testAnimal = new Animal("Tiger");
         testAnimal.save();
         assertEquals(Animal.all().get(0),testAnimal);
+    }
+
+    @Test
+    public void all_returnsAllInstancesOfAnimals_true(){
+        Animal testAnimal = new Animal("Tiger");
+        testAnimal.save();
+        Animal testAnimal1 = new Animal("Gazelle");
+        testAnimal1.save();
+        assertEquals(true,Animal.all().get(0).equals(testAnimal));
+        assertEquals(true, Animal.all().get(1).equals( testAnimal1));
+    }
+
+    @Test
+    public void save_assignsIdToObject() {
+        Animal testAnimal = new Animal("Tiger");
+        testAnimal.save();
+        Animal savedAnimal = Animal.all().get(0);
+        assertEquals(testAnimal.getId(), savedAnimal.getId());
     }
 }

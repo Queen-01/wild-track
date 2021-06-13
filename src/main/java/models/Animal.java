@@ -28,6 +28,18 @@ public class Animal {
                     
         }
     }
+//       @Override
+    public void save() {
+        try(Connection con = DB.sql2o.open()){
+            String sql = "INSERT INTO animals (name, type) VALUES(:name, :type)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("name", this.name)
+                    .addParameter("type", this.type)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+
     public static List<Animal> all() {
         String sql = "SELECT* FROM animals";
         try(Connection con = DB.sql2o.open()){
@@ -47,18 +59,6 @@ public class Animal {
     public int getId(){
         return id;
     }
-//   @Override
-   public void save() {
-       try(Connection con = DB.sql2o.open()){
-           String sql = "INSERT INTO animals (name, type) VALUES(:name, :type)";
-           this.id = (int) con.createQuery(sql, true)
-                   .addParameter("name", this.name)
-                   .addParameter("type", this.type)
-                   .executeUpdate()
-                   .getKey();
-       }
-   }
-
     public Animal findById(int id) {
         try(Connection con = DB.sql2o.open()){
             String sql = "SELECT * FROM animals WHERE id = :id AND type = :type";
