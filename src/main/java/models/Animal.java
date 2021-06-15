@@ -59,7 +59,7 @@ public class Animal {
     public int getId(){
         return id;
     }
-    public Animal findById(int id) {
+    public static Animal findById(int id) {
         try(Connection con = DB.sql2o.open()){
             String sql = "SELECT * FROM animals WHERE id = :id AND type = :type";
             return (Animal) con.createQuery(sql)
@@ -67,6 +67,27 @@ public class Animal {
                     .addParameter("type", "animal")
                     .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Animal.class);
+        }
+    }
+
+//    @Override
+    public void delete() {
+        try(Connection con = DB.sql2o.open()){
+            String sql = "DELETE FROM animals WHERE id = :id;";
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+
+//    @Override
+    public void update(String name){
+        String sql = "UPDATE animals SET name = :name WHERE id = :id;";
+        try (Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("name", name)
+                    .addParameter("id", id)
+                    .executeUpdate();
         }
     }
 }
