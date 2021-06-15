@@ -12,17 +12,17 @@ import static org.junit.Assert.*;
 public class EndangeredTest {
     @Rule
     public DataBase dataBase = new DataBase();
-//    @Before
-//    public void setUP(){
-//        DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wild_track_test", "moringa", "avamara");
-//    }
-//    @After
-//    public void tearDown(){
-//        try(Connection con = DB.sql2o.open()){
-//            String SqlEndangered = "DELETE FROM endangered *;";
-//            con.createQuery(SqlEndangered).executeUpdate();
-//        }
-//    }
+    @Before
+    public void setUP(){
+        DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wild_track_test", "moringa", "avamara");
+    }
+    @After
+    public void tearDown(){
+        try(Connection con = DB.sql2o.open()){
+            String SqlEndangered = "DELETE FROM endangered *;";
+            con.createQuery(SqlEndangered).executeUpdate();
+        }
+    }
     @Test
     public void endangered_instantiatesCorrectly_true() {
         Endangered testEndangered = setUpTheTask();

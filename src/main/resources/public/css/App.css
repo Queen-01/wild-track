@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+body{
+    background: rgba(14, 14, 14, 0.618) url("../images/Wildebeest.jpg");
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/***********
+    layout
+    *******/
+.h-1{
+    font-size: 50px;
+    font-family: 'Great Vibes', cursive;
+}
+li a{
+    font-size: 20px;
+}
+#h1-1{
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Cookie', cursive;
+    color: white;
+}
+#pop{
+    font-size: 30px;
+    color: white;
+}

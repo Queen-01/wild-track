@@ -1,0 +1,26 @@
+{{#partial "content"}}
+    <section class="landing-pg">
+        <div class="land-left">
+        </div>
+        <div class="land-right">
+        </div>
+        <div class="anime">
+            {{#each animal}}
+                <img src="/image/puff.jpeg" alt="">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body hero-item">
+                                <p class="card-test">Name: {{ name }} </p>
+                                <p class="card-text">Age: {{ age }}</p>
+                                <p class="card-text">Type: {{ type }}</p>
+                                <button type="submit" class="btn-primary"><a href="/animal-form" >Add an animal</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </section>
+{{/partial}}
+{{> layout.hbs}}

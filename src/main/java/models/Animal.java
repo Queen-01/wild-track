@@ -7,14 +7,17 @@ import interfaces.AnimalInterface;
 import org.sql2o.*;
 
 public class Animal implements AnimalInterface {
-    private static final String ANIMAL_TYPE = "animal";
+    public static final Integer ANIMAL_TYPE = 0;
+    //    public static final String ANIMAL_TYPE ="animal" ;
+    private static final String Animal_type = "animal";
+//    public static int Animal_type;
     private String name;
     private int id;
     private String type;
     
     public Animal(String name){
         this.name = name;
-        this.type = ANIMAL_TYPE;
+        this.type = Animal_type;
         this.id = id;
     }
     @Override

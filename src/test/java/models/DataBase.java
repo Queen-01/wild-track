@@ -14,8 +14,14 @@ public class DataBase extends ExternalResource {
         try (Connection con = DB.sql2o.open()){
             String deleteAnimalQuery = "DELETE FROM animals *;";
             String deleteEndangeredQuery = "DELETE FROM endangered";
+            String deleteSightingQuery = "DELETE FROM sightings *;";
+            String deleteLocationQuery = "DELETE FROM location *;";
+            String deleteRangerQuery = "DELETE FROM rangers *;";
             con.createQuery(deleteAnimalQuery).executeUpdate();
             con.createQuery(deleteEndangeredQuery).executeUpdate();
+            con.createQuery(deleteSightingQuery).executeUpdate();
+            con.createQuery(deleteLocationQuery).executeUpdate();
+            con.createQuery(deleteRangerQuery).executeUpdate();
         }
     }
 }
