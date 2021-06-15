@@ -3,9 +3,10 @@ package models;
 import java.util.List;
 import java.util.Objects;
 
+import interfaces.AnimalInterface;
 import org.sql2o.*;
 
-public class Animal {
+public class Animal implements AnimalInterface {
     private static final String ANIMAL_TYPE = "animal";
     private String name;
     private int id;
@@ -28,7 +29,7 @@ public class Animal {
                     
         }
     }
-//       @Override
+       @Override
     public void save() {
         try(Connection con = DB.sql2o.open()){
             String sql = "INSERT INTO animals (name, type) VALUES(:name, :type)";
@@ -70,7 +71,7 @@ public class Animal {
         }
     }
 
-//    @Override
+    @Override
     public void delete() {
         try(Connection con = DB.sql2o.open()){
             String sql = "DELETE FROM animals WHERE id = :id;";
@@ -80,7 +81,7 @@ public class Animal {
         }
     }
 
-//    @Override
+    @Override
     public void update(String name){
         String sql = "UPDATE animals SET name = :name WHERE id = :id;";
         try (Connection con = DB.sql2o.open()){
