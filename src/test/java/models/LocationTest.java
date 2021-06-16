@@ -24,49 +24,49 @@ public class LocationTest {
     }
     @Test
     public void Location_instantiatesCorrectly_true(){
-        Location location = new Location("Donson");
+        Location location = new Location("Queen");
         assertEquals(true, location instanceof Location);
     }
     @Test
     public void Location_instantiatesWithName_String() {
-        Location location = new Location("Donson");
-        assertEquals("Donson", location.getName());
+        Location location = new Location("Queen");
+        assertEquals("Queen", location.getName());
     }
     @Test
     public void Location_instantiatesWithAnId() {
-        Location location = new Location("Donson");
+        Location location = new Location("Queen");
         location.save();
         assertTrue(location.getId()>0);
     }
     @Test
     public void save_savesCorrectly() {
-        Location location = new Location("Donson");
+        Location location = new Location("Queen");
         location.save();
         assertTrue(Location.all().get(0).equals(location));
     }
     @Test
     public void find_returnsLocationWIthSameID_secondLocation(){
-        Location location = new Location("Donson");
+        Location location = new Location("Queen");
         location.save();
-        Location locationTwo = new Location("Kalius");
+        Location locationTwo = new Location("Tiren");
         locationTwo.save();
         assertEquals(Location.find(locationTwo.getId()), locationTwo);
     }
     @Test
     public void equals_returnsTrueIfLocationsAreSame(){
-        Location location = new Location("Donson");
-        Location locationTwo = new Location("Donson");
+        Location location = new Location("Queen");
+        Location locationTwo = new Location("Tiren");
         assertTrue(location.equals(locationTwo));
     }
     @Test
     public void save_returnsTrueIfNamesAreTheSame(){
-        Location location = new Location("Donson");
+        Location location = new Location("Queen");
         location.save();
         assertEquals(Location.all().get(0), location);
     }
     @Test
     public void all_returnsAllInstancesOfLocations_true(){
-        Location locationOne = new Location("Donson");
+        Location locationOne = new Location("Queen");
         locationOne.save();
         Location locationTwo = new Location("Kalius");
         locationTwo.save();
@@ -75,20 +75,20 @@ public class LocationTest {
     }
     @Test
     public void save_assignsIdToObject() {
-        Location location = new Location("Donson");
+        Location location = new Location("Tiren");
         location.save();
         Location savedLocation = Location.all().get(0);
         assertEquals(location.getId(), savedLocation.getId());
     }
     @Test
     public void update_updateLocation_true(){
-        Location location = new Location("Capstone");
+        Location location = new Location("Queen");
         location.save();
         location.update("Capstone");
     }
     @Test
     public void delete_deletesLocation_true(){
-        Location location = new Location("Donson");
+        Location location = new Location("Tiren");
         location.save();
         int locationId = location.getId();
         location.delete();

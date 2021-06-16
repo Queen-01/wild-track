@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Location implements LocationInterface {
 
-    private int id;
+    private int animal_id;
     private String name;
     public Location(String name){
         this.name = name;
@@ -17,7 +17,7 @@ public class Location implements LocationInterface {
     }
 
     public int getId() {
-        return id;
+        return animal_id;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Location implements LocationInterface {
     public void save(){
         try(Connection con = DB.sql2o.open()){
             String sql = "INSERT INTO locations (name) VALUES(:name)";
-            this.id = (int) con.createQuery(sql,true)
+            this.animal_id = (int) con.createQuery(sql,true)
                     .addParameter("name", this.name)
                     .throwOnMappingFailure(false)
                     .executeUpdate()
@@ -66,7 +66,7 @@ public class Location implements LocationInterface {
             String sql = "UPDATE locations SET name=:name WHERE id=:id";
             con.createQuery(sql)
                     .addParameter("name", name)
-                    .addParameter("id", id)
+                    .addParameter("id", animal_id)
                     .executeUpdate();
         }
     }
@@ -74,7 +74,7 @@ public class Location implements LocationInterface {
         try(Connection con = DB.sql2o.open()){
             String sql = "DELETE FROM locations WHERE id=:id;";
             con.createQuery(sql)
-                    .addParameter("id", id)
+                    .addParameter("id", animal_id)
                     .executeUpdate();
         }
     }
