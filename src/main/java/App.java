@@ -9,7 +9,6 @@ import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import static java.lang.Integer.parseInt;
-import static spark.Spark.*;
 
 public class App {
     public static void main(String[] args){
@@ -34,5 +33,19 @@ public class App {
             model.put("animals", Animal.ANIMAL_TYPE);
             return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/animals/new", (req,res)->{
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model,"animal-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/new-animal",(req,res)->{
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.queryParams("id"));
+            String name = req.queryParams("name");
+            Animal newAnimal = new Animal(id,name);
+            newAnimal.save(new Animal);
+            return new ModelAndView(model,"success.hbs");
+        },new HandlebarsTemplateEngine());
     }
 }

@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
 
-body{
-    background: rgba(14, 14, 14, 0.618) url("../images/Wildebeest.jpg");
-    height: 500px;
-    background-size: cover;
+*{
+    background:rgba(0, 0, 0, 0.857) url("../images/Wildebeest.jpg");
+    background-position: center center;
     background-repeat: no-repeat;
+    background-size: cover;
     background-attachment: fixed;
+    background-blend-mode: darken;
+    width: 100%;
 }
 
 /***********
@@ -28,4 +30,23 @@ li a{
 #pop{
     font-size: 30px;
     color: white;
+}
+.pop{
+    font-family: 'Cookie', cursive;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+h4{
+    font-size: 30px;
+
+}
+#pap{
+    background:rgba(0, 0, 0, 0.857) url("../images/images.jpeg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+    width: 100%;
 }

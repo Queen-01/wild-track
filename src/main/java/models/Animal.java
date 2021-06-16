@@ -15,12 +15,15 @@ public class Animal implements AnimalInterface {
     private int id;
     private String type;
     
-    public Animal(String name){
+    public Animal( int id, String name){
         this.name = name;
         this.type = Animal_type;
         this.id = id;
     }
+
+
     @Override
+
     public boolean equals(Object testAnimal1){
         if(!(testAnimal1 instanceof Animal)){
             return false;

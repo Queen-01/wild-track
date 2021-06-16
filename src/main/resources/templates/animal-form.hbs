@@ -1,0 +1,43 @@
+{{# partial "style"}}
+    <link rel="stylesheet" href="css/App.css" type="text/css">
+{{/partial}}
+{{#partial "content"}}
+    <div id="pap">
+        <section class="new-animal-cont">
+
+               <div class="card">
+                   <div class="card-body pom">
+                       <section class="normal-species " id="normal">
+                           <h3>Normal Animal</h3>
+                           <form action="/new-animal" method="post">
+                               <input type="text" name="id" id="" placeholder="Animal Id" required>
+                               <input type="text" name="name" id="" placeholder="Name" required>
+                               <input type="submit" class="btn light">
+                           </form>
+
+                       </section>
+                       <section class="endangered-species" id="endangered">
+                           <h3>Endangered Animal</h3>
+                           <form action="/new-endangered" method="post">
+                               <input type="text" name="name" id="" placeholder="Animal Name" required>
+                               <select name="health" required>
+                                   <option value="">Choose health option</option>
+                                   <option value="Healthy">Healthy</option>
+                                   <option value="Ill">Ill</option>
+                                   <option value="Injured">Injured</option>
+                               </select>
+                               <select name="age" required>
+                                   <option value="">Chose age</option>
+                                   <option value="New Born">New Born</option>
+                                   <option value="Young">Young</option>
+                                   <option value="Old">Old</option>
+                               </select>
+                               <input type="submit" class="btn light">
+                           </form>
+                       </section>
+                   </div>
+               </div>
+        </section>
+    </div>
+{{/partial}}
+{{> layout.hbs}}

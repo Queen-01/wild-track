@@ -1,26 +1,26 @@
 {{#partial "content"}}
-    <section class="landing-pg">
-        <div class="land-left">
-        </div>
-        <div class="land-right">
-        </div>
-        <div class="anime">
-            {{#each animal}}
-                <img src="/image/puff.jpeg" alt="">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body hero-item">
-                                <p class="card-test">Name: {{ name }} </p>
-                                <p class="card-text">Age: {{ age }}</p>
-                                <p class="card-text">Type: {{ type }}</p>
-                                <button type="submit" class="btn-primary"><a href="/animal-form" >Add an animal</a></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-    </section>
+    <h1 class="pop">Our animals</h1>
+
+
+    <div class="container">
+        {{#each animals}}
+            <div class="card-body card-body-cascade text-center">
+
+                <h4 class="card-title"><strong>{{name}}</strong></h4>
+
+                <h6 class="font-weight-bold indigo-text py-2">{{type}}</h6>
+                <br>
+                <br>
+                <form action="/animals/{{id}}/delete" method="post">
+                    <a href="/animals/{{id}}/delete"><button class="btn btn-dark-green">Delete animal</button></a>
+                </form>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="row text-center">
+        <a href="/animals/new"><button class="btn btn-unique">Add New animal</button></a>
+        <a href="/endangered/new"><button class="btn btn-unique">Add New Endangered animal</button></a>
+    </div>
 {{/partial}}
 {{> layout.hbs}}

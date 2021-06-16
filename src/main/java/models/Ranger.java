@@ -13,6 +13,7 @@ public class Ranger {
     public Ranger(String name,int tag){
         this.name = name;
         this.tag = tag;
+        this.id = id;
     }
 
     public String getName() {
@@ -49,9 +50,9 @@ public class Ranger {
 
     public void save(){
         try (Connection conn = DB.sql2o.open()){
-            String sql = "INSERT INTO rangers(name,tag) VALUES(:name,:tag)";
+            String sql = "INSERT INTO rangers(name,tag) VALUES(:name,:tag);";
             this.id = (int) conn.createQuery(sql,true)
-                    .addParameter("name",name)
+                    .addParameter("name",this.name)
                     .addParameter("tag",this.tag)
                     .executeUpdate()
                     .getKey();
