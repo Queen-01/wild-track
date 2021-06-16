@@ -1,18 +1,13 @@
 {{#partial "content"}}
 
     <section class="success-cont">
-        <a href="/" class="redirect">Home</a>
         <div class="success">
-            {{#if newSighting}}
-                <p>Great!! Animal Spotted </p>
-                <p>Location: {{newSighting.animal_location}}</p>
-            {{else}}
-                <p>{{new.ranger_name}} <br> Animal Added Successfully</p>
+            {{#if}}
+                <p class="mob">ID: {{Animal.id}}</p>
+                <p class="mob">Name: {{Animal.name}}</p>
+                <p class="mob">TYPE: {{Animal.type}} <br> Animal Added Successfully</p>
             {{/if}}
-
-            <a href="/dashboard" class="btn">View in dashboard</a>
         </div>
     </section>
-
 {{/partial}}
 {{> layout.hbs}}

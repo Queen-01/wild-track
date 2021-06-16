@@ -7,4 +7,7 @@ public interface AnimalInterface {
 
     //DELETE
     void delete();
+
+//    void saveAnimal(Animal animal);
 }
+

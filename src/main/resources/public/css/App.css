@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gabriela&display=swap');
 
 *{
     background:rgba(0, 0, 0, 0.857) url("../images/Wildebeest.jpg");
@@ -41,12 +42,39 @@ h4{
     font-size: 30px;
 
 }
-#pap{
-    background:rgba(0, 0, 0, 0.857) url("../images/images.jpeg");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-blend-mode: darken;
-    width: 100%;
+.pom h3{
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    font-family: 'Cookie', cursive;
+
+}
+#pom{
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    font-family: 'Cookie', cursive;
+}
+.card{
+    justify-content: center;
+  align-items: center;
+  background: rgb(226, 224, 224);
+  /* background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; */
+  background-blend-mode: lighten;
+  width: 700px;
+  /* margin-top: 90px; */
+  height: 300px;
+}
+.bom{
+    color: white;
+    font-size: 20px;
+}
+.mob{
+    color: white;
+    font-size: 25px;
+    font-family: 'Gabriela', serif;
+    text-align: center;
 }

@@ -31,13 +31,13 @@ public class EndangeredTest {
     @Test
     public void Endangered_InstantiatesWithNameCorrectly_String(){
         Endangered testEndangered = setUpTheTask();
-        assertEquals("Elephant",testEndangered.getName());
+        assertEquals("fisi",testEndangered.getName());
     }
 
     @Test
     public void Endangered_InstantiatesWithAgeCorrectly_String(){
         Endangered testEndangered = setUpTheTask();
-        assertEquals("adult", testEndangered instanceof Endangered);
+        assertEquals(true, testEndangered instanceof Endangered);
     }
 
     @Test

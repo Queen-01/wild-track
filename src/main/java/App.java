@@ -15,7 +15,7 @@ public class App {
         ProcessBuilder processBuilder = new ProcessBuilder();
         Integer port;
         if(processBuilder.environment().get("PORT") != null){
-            port = Integer.parseInt(processBuilder.environment().get("PORT"));
+            port = parseInt(processBuilder.environment().get("PORT"));
         }else{
             port = 4567;
         }
@@ -30,7 +30,7 @@ public class App {
 
         get("/animals", (request, response) ->{
             Map<String, Object> model = new HashMap<>();
-            model.put("animals", Animal.ANIMAL_TYPE);
+            model.put("animals", Animal.Animal_type);
             return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -39,13 +39,29 @@ public class App {
             return new ModelAndView(model,"animal-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/new-animal",(req,res)->{
+        post("/new/animal",(req,res)->{
             Map<String, Object> model = new HashMap<>();
-            int id = Integer.parseInt(req.queryParams("id"));
+            int id = parseInt(req.queryParams("id"));
             String name = req.queryParams("name");
-            Animal newAnimal = new Animal(id,name);
-            newAnimal.save(new Animal);
+            String type = req.queryParams("type");
+            Animal newAnimal = new Animal(id,name, type);
+            newAnimal.save();
             return new ModelAndView(model,"success.hbs");
         },new HandlebarsTemplateEngine());
+
+        get("/endan/new", (req,res)->{
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model,"endan-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+//        post("/new/endan",(req,res)->{
+//            Map<String, Object> model = new HashMap<>();
+//            int id = Integer.parseInt(req.queryParams("id"));
+//            String name = req.queryParams("name");
+//            String location = req.queryParams("location");
+//            Animal newAnimal = new Animal( id,name);
+//            newAnimal.save();
+//            return new ModelAndView(model,"success2.hbs");
+//        },new HandlebarsTemplateEngine());
     }
 }

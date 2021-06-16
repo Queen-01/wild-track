@@ -47,7 +47,7 @@ public class Sighting implements SightingInterface {
 
     public String getLocationName() {
         try(Connection con = DB.sql2o.open()) {
-            return con.createQuery("SELECT name FROM locations WHERE id=:id")
+            return con.createQuery("SELECT name FROM location WHERE id=:id")
                     .addParameter("id", this.locationId)
                     .executeAndFetchFirst(String.class);
         }
@@ -103,7 +103,7 @@ public class Sighting implements SightingInterface {
     public static List<Sighting> allAnimals() {
         try (Connection con = DB.sql2o.open()) {
             return con.createQuery("SELECT * FROM sightings WHERE animalType=:type")
-                    .addParameter("type", Animal.ANIMAL_TYPE)
+                    .addParameter("type", Animal.Animal_type)
                     .executeAndFetch(Sighting.class);
         }
     }

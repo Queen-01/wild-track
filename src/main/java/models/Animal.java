@@ -7,20 +7,19 @@ import interfaces.AnimalInterface;
 import org.sql2o.*;
 
 public class Animal implements AnimalInterface {
-    public static final Integer ANIMAL_TYPE = 0;
-    //    public static final String ANIMAL_TYPE ="animal" ;
-    private static final String Animal_type = "animal";
-//    public static int Animal_type;
+//    public static final Integer ANIMAL_TYPE = 0;
+//        public static final String ANIMAL_TYPE ="animal" ;
+    public static final String Animal_type = "animal";
+    //    public static int Animal_type;
     private String name;
     private int id;
     private String type;
     
-    public Animal( int id, String name){
+    public Animal( int id, String name, String type){
         this.name = name;
         this.type = Animal_type;
         this.id = id;
     }
-
 
     @Override
 
@@ -48,7 +47,7 @@ public class Animal implements AnimalInterface {
     }
 
     public static List<Animal> all() {
-        String sql = "SELECT* FROM animals";
+        String sql = "SELECT * FROM animals";
         try(Connection con = DB.sql2o.open()){
             return con.createQuery(sql)
                     .executeAndFetch(Animal.class);
