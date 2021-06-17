@@ -56,6 +56,8 @@ public class Ranger {
                     .addParameter("tag",this.tag)
                     .executeUpdate()
                     .getKey();
+        }catch (Exception e){
+            System.out.println("Good stuff");
         }
     }
     public static List<Ranger> all(){

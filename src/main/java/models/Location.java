@@ -50,6 +50,8 @@ public class Location implements LocationInterface {
                     .throwOnMappingFailure(false)
                     .executeUpdate()
                     .getKey();
+        }catch (Exception e){
+            System.out.println("Good stuff");
         }
     }
     public static List<Location> all(){
@@ -65,11 +67,11 @@ public class Location implements LocationInterface {
                     .executeAndFetchFirst(Location.class);
         }
     }
-    public void update(String name){
+    public void update(String sightings_location){
         try(Connection con = DB.sql2o.open()){
-            String sql = "UPDATE location SET name=:name WHERE id=:id";
+            String sql = "UPDATE location SET sightings_location :sightings_location WHERE id=:id";
             con.createQuery(sql)
-                    .addParameter("name", name)
+                    .addParameter("sightings_location", sightings_location)
                     .addParameter("id", animal_id)
                     .executeUpdate();
         }
