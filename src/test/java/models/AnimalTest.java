@@ -28,64 +28,64 @@ public class AnimalTest {
     }
     @Test
     public void animal_instantiatesCorrectly_true() {
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         assertEquals(true,testAnimal instanceof Animal);
     }
 
     @Test
     public void Animal_instantiatesCorrectlyWithType_String(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         assertEquals("animal", testAnimal.getType());
     }
 
     @Test
     public void Animal_instantiateWithName_String(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         assertEquals("Tiger", testAnimal.getName());
     }
 
     @Test
     public void Animal_instantiateWithId_int(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
         assertEquals(true,testAnimal.getId()>0);
     }
 
     @Test
     public void save_CorrectlyIntoDataBase(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
         assertEquals(true, Animal.all().get(0).equals(testAnimal));
     }
 
     @Test
     public void findById_returnAnimalWithSameId_secondAnimal(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
-        Animal testAnimal1 = new Animal(2, "Gazelle", "mammal");
+        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
         testAnimal1.save();
         assertEquals(testAnimal.findById(testAnimal1.getId()), testAnimal1);
     }
 
     @Test
     public void equals_returnsTrueIfAnimalsAreSme(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
-        Animal testAnimal1 = new Animal(2,"Gazelle", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
+        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
         assertEquals(false,testAnimal.equals(testAnimal1));
     }
 
     @Test
     public void save_returnsTrueIfAnimalsAreSme(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
         assertEquals(Animal.all().get(0),testAnimal);
     }
 
     @Test
     public void all_returnsAllInstancesOfAnimals_true(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
-        Animal testAnimal1 = new Animal(2,"Gazelle", "mammal");
+        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
         testAnimal1.save();
         assertEquals(true,Animal.all().get(0).equals(testAnimal));
         assertEquals(true, Animal.all().get(1).equals( testAnimal1));
@@ -93,7 +93,7 @@ public class AnimalTest {
 
     @Test
     public void save_assignsIdToObject() {
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
         Animal savedAnimal = Animal.all().get(0);
         assertEquals(testAnimal.getId(), savedAnimal.getId());
@@ -101,7 +101,7 @@ public class AnimalTest {
 
     @Test
     public void delete_deletesAnimal_true(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal( "Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
         int testAnimalId = testAnimal.getId();
         testAnimal.delete();
@@ -110,9 +110,9 @@ public class AnimalTest {
 
     @Test
     public void update_CorrectlyIntoDataBase(){
-        Animal testAnimal = new Animal(1, "Tiger", "mammal");
+        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
         testAnimal.save();
-        Animal testAnimal1 = new Animal(2, "Gazelle", "mammal");
+        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
         assertEquals(Animal.all().get(0), testAnimal);
 //        assertEquals(Animal.all().get(0), testAnimal1);
     }

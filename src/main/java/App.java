@@ -1,25 +1,29 @@
 import static spark.Spark.*;
 
-import models.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+import models.Animal;
+import models.Endangered;
+import models.Location;
+import models.Ranger;
 import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.HashMap;
-import java.util.Map;
+import static java.lang.Integer.parseInt;
 
 public class App {
-    public static void main(String[]args){
+    public static void main(String[] args){
         ProcessBuilder processBuilder = new ProcessBuilder();
         Integer port;
-
-        if (processBuilder.environment().get("PORT") != null){
-            port = Integer.parseInt(processBuilder.environment().get("PORT"));
-        }else {
+        if(processBuilder.environment().get("PORT") != null){
+            port = parseInt(processBuilder.environment().get("PORT"));
+        }else{
             port = 4567;
         }
         port(port);
+
         staticFileLocation("/public");
 
         get("/", (request, response) -> {
@@ -27,235 +31,67 @@ public class App {
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/animals/new", (request, response) -> {
+        get("/animals", (request, response) ->{
             Map<String, Object> model = new HashMap<>();
             model.put("animals", Animal.Animal_type);
-            return new ModelAndView(model, "animal-form.hbs");
+            return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/animals", (request, response) -> {
+        get("/animals/new", (req,res)->{
             Map<String, Object> model = new HashMap<>();
-            int id= Integer.parseInt(request.params(":id"));
-            String name = request.queryParams("name");
-            String type = request.queryParams("type");
-            Animal animal = new Animal(id,name,type);
-            animal.save();
-            model.put("animals", Animal.all());
-            return new ModelAndView(model, "animals.hbs");
+            return new ModelAndView(model,"animal-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/animals", (request, response) -> {
+        post("/new/animals",(req,res)->{
             Map<String, Object> model = new HashMap<>();
-            model.put("animals", Animal.all());
-            return new ModelAndView(model, "animals.hbs");
-        }, new HandlebarsTemplateEngine());
+            int id = parseInt(req.queryParams("id"));
+            String name = req.queryParams("name");
+            String type = req.queryParams("type");
+            String age = req.queryParams("age");
+            String health = req.queryParams("health");
+            String location = req.queryParams("location");
+            Animal newAnimal = new Animal(name, type, age, health, location);
+            newAnimal.save();
+            return new ModelAndView(model,"success.hbs");
+        },new HandlebarsTemplateEngine());
 
-        post("/animals/:id/delete", (request, response) -> {
+        get("/endanger/new", (req,res)->{
             Map<String, Object> model = new HashMap<>();
-            Animal animal = Animal.findById(Integer.parseInt(request.params(":id")));
-            animal.delete();
-            model.put("animals", Animal.all());
-            return new ModelAndView(model,"animals.hbs");
+            return new ModelAndView(model,"endan-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/animals/:id/edit", (request, response) -> {
+        post("/endanger",(req,res)->{
             Map<String, Object> model = new HashMap<>();
-            Animal animal = Animal.findById(Integer.parseInt(request.params(":id")));
-            model.put("animal", animal);
-            model.put("animals", Animal.all());
-            return new ModelAndView(model, "edit-animal.hbs");
-        }, new HandlebarsTemplateEngine());
+            int id = Integer.parseInt(req.queryParams("id"));
+            String name = req.queryParams("name");
+            String type = req.queryParams("type");
+            String age = req.queryParams("age");
+            String health = req.queryParams("health");
+            String location = req.queryParams("location");
+            Animal newAnimal = new Animal(name,type,age,health ,location);
+            newAnimal.save();
+            return new ModelAndView(model,"success2.hbs");
+        },new HandlebarsTemplateEngine());
 
-        post("/animals/:id/edit", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Animal animal = Animal.findById(Integer.parseInt(request.params(":id")));
-            String name = request.queryParams("name");
-            animal.update(name);
-            model.put("animals", Animal.all());
-            return new ModelAndView(model, "animals.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("endangered/new", (request, response) -> {
+        get("/sightings", (request, response) ->{
             Map<String, Object> model = new HashMap<>();
             model.put("animals", Animal.Animal_type);
-            return new ModelAndView(model,"endangered-form.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/endangered", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            String name = request.queryParams("name");
-            String age = request.queryParams("age");
-            String health = request.queryParams("health");
-            Endangered eAnimal = new Endangered(name,age,health);
-            eAnimal.save();
-            model.put("endangered", Endangered.all());
-            return new ModelAndView(model, "endangered.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/endangered", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("endangered", Endangered.all());
-            return new ModelAndView(model, "endangered.hbs");
-        }, new HandlebarsTemplateEngine());
-
-//        post("/endangered/:id/delete", (request, response) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            Endangered animal = new (Endangered) Endangered.findEndangered(Integer.parseInt(request.params(":id")));
-//            animal.delete();
-//            model.put("animals", Endangered.all());
-//            return new ModelAndView(model,"animals.hbs");
-//        }, new HandlebarsTemplateEngine());
-
-        get("rangers/new", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "ranger-form.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/rangers", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            String name = request.queryParams("name");
-            int badge = Integer.parseInt(request.queryParams("badge"));
-            Ranger ranger = new Ranger(name,badge);
-            ranger.save();
-            model.put("rangers", Ranger.all());
-            model.put("template", "templates/rangers.vtl");
-            return new ModelAndView(model, "rangers.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/rangers", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("rangers", Ranger.all());
-            return new ModelAndView(model, "rangers.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/rangers/:id/delete", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Ranger ranger = Ranger.find(Integer.parseInt(request.params(":id")));
-            ranger.delete();
-            model.put("rangers", Ranger.all());
-            model.put("template", "templates/rangers.vtl");
-            return new ModelAndView(model,"rangers.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/rangers/:id/edit", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Ranger ranger = Ranger.find(Integer.parseInt(request.params(":id")));
-            model.put("ranger", ranger);
-            model.put("rangers", Ranger.all());
-            return new ModelAndView(model, "edit-ranger.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/rangers/:id/edit", (request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
-            Ranger ranger = Ranger.find(Integer.parseInt(request.params(":id")));
-            String name = request.queryParams("name");
-            int badge = Integer.parseInt(request.queryParams("badge"));
-            ranger.update(name,badge);
-            model.put("rangers", Ranger.all());
-            model.put("template", "templates/rangers.vtl");
-            return new ModelAndView(model, "rangers.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("locations/new", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "location-form.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/locations", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            String name = request.queryParams("name");
-            Location location = new Location(name);
-            location.save();
-            model.put("locations", Location.all());
-            return new ModelAndView(model, "locations.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/locations", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("locations", Location.all());
-            return new ModelAndView(model, "locations.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/locations/:id/delete", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Location location = Location.find(Integer.parseInt(request.params(":id")));
-            location.delete();
-            model.put("locations", Location.all());
-            model.put("template", "templates/locations.vtl");
-            return new ModelAndView(model,"locations.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/locations/:id/edit", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Location location = Location.find(Integer.parseInt(request.params(":id")));
-            model.put("location", location);
-            model.put("locations", Location.all());
-            model.put("template", "templates/edit-location.vtl");
-            return new ModelAndView(model,"edit-location.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/locations/:id/edit", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Location location = Location.find(Integer.parseInt(request.params(":id")));
-            String name = request.queryParams("name");
-            location.update(name);
-            model.put("locations", Location.all());
-            return new ModelAndView(model,"locations.hbs");
+            return new ModelAndView(model, "sight.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/sightings/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("animals", Animal.all());
-            model.put("locations", Location.all());
+            model.put("location", Location.all());
             model.put("endangered", Endangered.all());
             model.put("rangers", Ranger.all());
             return new ModelAndView(model, "sight-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/sightings", (request, response) -> {
+        get("/location", (request, response) ->{
             Map<String, Object> model = new HashMap<>();
-            int animalId = Integer.parseInt(request.queryParams("animalId"));
-            int rangerId = Integer.parseInt(request.queryParams("rangerId"));
-            int locationId = Integer.parseInt(request.queryParams("locationId"));
-            String type = request.queryParams("type");
-            Sighting sighting = new Sighting(animalId,rangerId,locationId,type);
-            sighting.save();
-            model.put("sightings", Sighting.all());
-            return new ModelAndView(model, "sight.hbs");
+            model.put("animals", Animal.Animal_type);
+            return new ModelAndView(model, "location.hbs");
         }, new HandlebarsTemplateEngine());
-
-        get("/sightings", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("sightings", Sighting.all());
-            return new ModelAndView(model, "sight.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/sightings/:id/delete", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Sighting sighting = Sighting.find(Integer.parseInt(request.params(":id")));
-            sighting.delete();
-            model.put("sightings", Sighting.all());
-            return new ModelAndView(model,"sight.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/sightings/:id/edit", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Sighting sighting = Sighting.find(Integer.parseInt(request.params(":id")));
-            model.put("sighting", sighting);
-            model.put("sightings", Sighting.all());
-            model.put("template", "templates/edit-sighting.vtl");
-            return new ModelAndView(model, "edit-sighting.hbs");
-        }, new HandlebarsTemplateEngine());
-    }
-
-
-    private static ModelAndView handle(Request request, Response response) {
-        Map<String, Object> model = new HashMap<>();
-        Endangered animal = (Endangered) Endangered.findEndangered(Integer.parseInt(request.params(":id")));
-        model.put("animal", animal);
-        model.put("endangered", Endangered.all());
-        model.put("template", "templates/edit-endangered.vtl");
-        return new ModelAndView(model, "edit-endangered.hbs");
     }
 }
-

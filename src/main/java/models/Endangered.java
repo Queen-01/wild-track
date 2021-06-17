@@ -1,5 +1,6 @@
 package models;
 
+import com.github.jknack.handlebars.Handlebars;
 import interfaces.EndangeredInterface;
 import org.sql2o.Connection;
 
@@ -11,7 +12,9 @@ public class Endangered implements EndangeredInterface {
     private String health;
     private String age;
     private String type;
+    private String location;
 
+    private int deleteEndangeredById;
     public static final String Animal_type = "endangered";
     public static final String Adult = "adult";
     public static final String Young = "youthful";
@@ -19,12 +22,16 @@ public class Endangered implements EndangeredInterface {
     public static final String Healthy = "very healthy";
     public static final String Okay = "averagely unhealthy";
     public static final String Ill = "unwell";
+    private Object rollbackOnException;
+    private boolean rollbackOnClose;
+    private Handlebars logger;
 
-    public Endangered(String name, String age, String health){
+    public Endangered(String name, String age, String health, String location){
         this.age = age;
         this.health = health;
         this.name = name;
         this.type = Animal_type;
+        this.location = location;
     }
 
     public String getAge(){
@@ -54,29 +61,36 @@ public class Endangered implements EndangeredInterface {
     public int getId() {
         return id;
     }
-    public void save() {
-        String sql = "INSERT INTO animals (name, age, health, type) VALUES (:name, :age, :health, :type)";
+    public void save(){
+        String sql = "INSERT INTO animals (id,name, health, age) VALUES (:id,:name, :health, :age)";
         try(Connection con = DB.sql2o.open()){
+            con.getJdbcConnection().setAutoCommit(false);
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("name", name)
-                    .addParameter("age", age)
                     .addParameter("health", health)
-                    .addParameter("type", type)
+                    .addParameter("age", age)
+//                    .addParameter("type", type)
+//                    .addParameter("location", location)
                     .throwOnMappingFailure(false)
                     .executeUpdate()
                     .getKey();
+        }catch(Exception e) {
+            logger.warn("Unable to determine autocommit state", e);
         }
     }
 
     public static Animal findEndangered(int id) {
-        try(Connection con = DB.sql2o.open()){
+        try (Connection con = DB.sql2o.open()) {
             String sql = "SELECT * FROM animals WHERE id=:id AND type=:type";
             return con.createQuery(sql)
                     .addParameter("id", id)
                     .addParameter("type", "endangered")
                     .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Animal.class);
+        } catch (Exception e) {
+            System.out.println("Something is wrong");
         }
+        return null;
     }
 
     public static List<Endangered> all() {

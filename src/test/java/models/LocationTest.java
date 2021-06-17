@@ -18,7 +18,7 @@ public class LocationTest {
     @After
     public void tearDown() throws Exception {
         try(Connection conn = DB.sql2o.open()) {
-            String sql = "DELETE FROM locations *;";
+            String sql = "DELETE FROM location *;";
             conn.createQuery(sql).executeUpdate();
         }
     }
@@ -29,66 +29,66 @@ public class LocationTest {
     }
     @Test
     public void Location_instantiatesWithName_String() {
-        Location location = new Location("Queen");
-        assertEquals("Queen", location.getName());
+        Location location = new Location("NEAR RIVER");
+        assertEquals("NEAR RIVER", location.getSightings_location());
     }
     @Test
     public void Location_instantiatesWithAnId() {
-        Location location = new Location("Queen");
+        Location location = new Location("NEAR RIVER");
         location.save();
         assertTrue(location.getId()>0);
     }
     @Test
     public void save_savesCorrectly() {
-        Location location = new Location("Queen");
+        Location location = new Location("NEAR RIVER");
         location.save();
         assertTrue(Location.all().get(0).equals(location));
     }
     @Test
     public void find_returnsLocationWIthSameID_secondLocation(){
-        Location location = new Location("Queen");
+        Location location = new Location("NEAR RIVER");
         location.save();
-        Location locationTwo = new Location("Tiren");
+        Location locationTwo = new Location("ZONE A");
         locationTwo.save();
         assertEquals(Location.find(locationTwo.getId()), locationTwo);
     }
     @Test
     public void equals_returnsTrueIfLocationsAreSame(){
-        Location location = new Location("Queen");
-        Location locationTwo = new Location("Tiren");
-        assertTrue(location.equals(locationTwo));
+        Location location = new Location("NEAR RIVER");
+        Location locationTwo = new Location("ZONE A");
+        assertEquals(false,location.equals(locationTwo));
     }
     @Test
     public void save_returnsTrueIfNamesAreTheSame(){
-        Location location = new Location("Queen");
+        Location location = new Location("NEAR RIVER");
         location.save();
         assertEquals(Location.all().get(0), location);
     }
     @Test
     public void all_returnsAllInstancesOfLocations_true(){
-        Location locationOne = new Location("Queen");
+        Location locationOne = new Location("NEAR RIVER");
         locationOne.save();
-        Location locationTwo = new Location("Kalius");
+        Location locationTwo = new Location("NR Quadurant");
         locationTwo.save();
         assertEquals(Location.all().get(0), locationOne);
         assertEquals(Location.all().get(1), locationTwo);
     }
     @Test
     public void save_assignsIdToObject() {
-        Location location = new Location("Tiren");
+        Location location = new Location("zone A");
         location.save();
         Location savedLocation = Location.all().get(0);
         assertEquals(location.getId(), savedLocation.getId());
     }
     @Test
     public void update_updateLocation_true(){
-        Location location = new Location("Queen");
+        Location location = new Location("NEAR RIVER");
         location.save();
         location.update("Capstone");
     }
     @Test
     public void delete_deletesLocation_true(){
-        Location location = new Location("Tiren");
+        Location location = new Location("ZONE A");
         location.save();
         int locationId = location.getId();
         location.delete();
