@@ -1,13 +1,19 @@
+{{# partial "styles"}}
+    <link rel="stylesheet" href="/css/App.css" type="text/css">
+{{/partial}}
 {{#partial "content"}}
 
     <section class="success-cont">
         <div class="success">
             {{#if}}
-                <p class="mob">ID: {{Animal.id}}</p>
                 <p class="mob">Name: {{Animal.name}}</p>
-                <p class="mob">TYPE: {{Animal.type}} <br> Animal Added Successfully</p>
+                <p class="mob">TYPE: {{Animal.type}}</p>
+                <p class="mob">AGE : {{Animal.age}}</p>
+                <p class="mob">HEALTH : {{Animal.health}}</p>
+                <p class="mob"> LOCATION : {{Animal.location}}
+                <br> Animal Added Successfully</p>
             {{/if}}
         </div>
     </section>
 {{/partial}}
-{{> layout.hbs}}
+{{>layout.hbs}}

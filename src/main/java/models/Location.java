@@ -1,4 +1,5 @@
 package models;
+
 import interfaces.LocationInterface;
 import org.sql2o.Connection;
 
@@ -11,12 +12,12 @@ public class Location implements LocationInterface {
     private String sightings_location;
     private Timestamp lastseen;
 
-    public Location(String  sightings_location){
-        this. sightings_location =  sightings_location;
+    public Location(String sightings_location) {
+        this.sightings_location = sightings_location;
     }
 
     public String getSightings_location() {
-        return  sightings_location;
+        return sightings_location;
     }
 
     public int getId() {
@@ -41,34 +42,37 @@ public class Location implements LocationInterface {
         return result;
     }
 
-    public void save(){
-        try(Connection con = DB.sql2o.open()){
+    public void save() {
+        try (Connection con = DB.sql2o.open()) {
             String sql = "INSERT INTO location ( sightings_location, lastseen) VALUES(: sightings_location, :lastseen)";
-            this.animal_id = (int) con.createQuery(sql,true)
-                    .addParameter(" sightings_location", this. sightings_location)
+            this.animal_id = (int) con.createQuery(sql, true)
+                    .addParameter(" sightings_location", this.sightings_location)
                     .addParameter("lastseen", this.lastseen)
                     .throwOnMappingFailure(false)
                     .executeUpdate()
                     .getKey();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Good stuff");
         }
     }
-    public static List<Location> all(){
+
+    public static List<Location> all() {
         try (Connection con = DB.sql2o.open()) {
-            return con.createQuery("SELECT * FROM location")
+            return con.createQuery("SELECT animals_id FROM location")
                     .executeAndFetch(Location.class);
         }
     }
-    public static Location find(int id){
+
+    public static Location find(int id) {
         try (Connection con = DB.sql2o.open()) {
             return con.createQuery("SELECT * FROM location WHERE id=:id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Location.class);
         }
     }
-    public void update(String sightings_location){
-        try(Connection con = DB.sql2o.open()){
+
+    public void update(String sightings_location) {
+        try (Connection con = DB.sql2o.open()) {
             String sql = "UPDATE location SET sightings_location :sightings_location WHERE id=:id";
             con.createQuery(sql)
                     .addParameter("sightings_location", sightings_location)
@@ -76,8 +80,9 @@ public class Location implements LocationInterface {
                     .executeUpdate();
         }
     }
+
     public void delete() {
-        try(Connection con = DB.sql2o.open()){
+        try (Connection con = DB.sql2o.open()) {
             String sql = "DELETE FROM location WHERE id=:id;";
             con.createQuery(sql)
                     .addParameter("id", animal_id)

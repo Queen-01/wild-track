@@ -2,14 +2,14 @@
     <link rel='stylesheet' href='/css/App.css'>
 {{/partial}}
 {{#partial "content"}}
-    <h1>All sightings</h1>
+    <h1 class="mob">All sightings</h1>
 
     <div class="container">
     {{#each sightings}}
 
-            <h6 class="font-weight-bold indigo-text py-2">Sighted By: {{animalId}}</h6>
-            <h6 class="font-weight-bold indigo-text py-2">Location: {{rangerId}}</h6>
-            <h6 class="font-weight-bold indigo-text py-2">Time: {{locationId}}</h6>
+            <h6 class="font-weight-bold indigo-text py-2">Sighted By: {{animals_id}}</h6>
+            <h6 class="font-weight-bold indigo-text py-2">Location: {{sightings_location}}</h6>
+            <h6 class="font-weight-bold indigo-text py-2">Time: {{date}}</h6>
 
 
             <form action="/sightings/{{id}}/delete" method="post">

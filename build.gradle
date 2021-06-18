@@ -1,9 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'org.wildtracker'
 version '1.0-SNAPSHOT'
+mainClassName = 'App'
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -23,3 +26,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+//applicationName = 'squads-hero'
+//archivesBaseName = " squads-hero"
+//defaultTasks = ['clean']
+//task stage(dependsOn: ['clean', 'installDist'])

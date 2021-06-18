@@ -2,42 +2,36 @@
     <link rel='stylesheet' href='/css/App.css'>
 {{/partial}}
 {{#partial "content"}}
-    <h1>Add a Sighting</h1>
+    <h1 class="mob">Add a Sighting</h1>
 
     <form action="/sightings/new" method="post">
         <div class="form-group">
-            <label for="animalId">Animal</label>
-            <select mdb-select md-form colorful-select dropdown-secondary id='animalId' name='animalId' type='text'>
-                <option class="text-grey" value="" disabled selected>Select an Animal</option>
+            <label for="animals_id" class="bom">Animal</label>
+            <input class="bom" name="animals_id" placeholder="Animal" required>
                 {{#each animals}}
-                    <option value="{{animal.name}}">Name</option>
+                    <option value="{{animals.name}}">Name</option>
                 {{/each}}
             </select>
         </div>
         <div class="form-group">
-            <label for="rangerId">Ranger</label>
-            <select mdb-select md-form colorful-select dropdown-secondary id='rangerId' name='rangerId' type='text'>
-                <option class="text-grey" value="" disabled selected>Select a Ranger</option>
-                {{#each rangers}}
-                    <option value="{{rangerId}}">Name</option>
-                {{/each}}
+            <label for="ranger" class="bom">Ranger</label>
+            <input class="bom" name="ranger" id="rangers_id" placeholder="Rangers" required>
+        </div>
+        <div class="form-group">
+            <label for="location" class="bom">Location</label>
+            <select class="bom" id='location' name='location' type='text'>
+                <option class="bom" value="" disabled selected>Select a Location</option>
+                <option class="bom" value="">Zone A</option>
+                <option class="bom" value="">Near the river</option>
+                <option class="bom" value="">NR Quadarant</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="locationId">Location</label>
-            <select mdb-select md-form colorful-select dropdown-secondary id='locationId' name='locationId' type='text'>
-                <option class="text-grey" value="" disabled selected>Select a Location</option>
-                {{#each locations}}
-                    <option value="{{locationId}}">Location</option>
-                {{/each}}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="animalType">Animal Type</label>
-            <select mdb-select md-form colorful-select dropdown-secondary id='animalType' name='animalType' type='text'>
-                <option class="text-grey" value="" disabled selected>Select Animal Type</option>
-                <option value="animal">Animal</option>
-                <option value="endangered">Endangered</option>
+            <label for="animalType" class="bom">Animal Type</label>
+            <select class="bom" id='animal_type' name='animal_type' type='text'>
+                <option class="bom" value="" disabled selected>Select Animal Type</option>
+                <option value="animal" class="bom">Animal</option>
+                <option value="endangered" class="bom">Endangered</option>
             </select>
         </div>
         <button type="submit" class="btn btn-dark-green">Add Sighting</button>

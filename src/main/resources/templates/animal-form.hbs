@@ -6,10 +6,18 @@
                    <div class="card-body pom">
                        <section class="normal-species " >
                            <h3 class="bom">Normal Animal</h3>
-                           <form action="/new/animal" method="post">
-                               <input type="text" name="id" class="bom" placeholder="Animal Id" required>
+                           <form action="/animal/new" method="post">
                                <input type="text" name="name" class="bom" placeholder="Name" required>
-                               <button type="submit" class="btn-success"><a href="/new/animals">ADD</a></button>
+                               <input type="text" name="type" class="bom" placeholder="type" required>
+                               <input type="text" name="age" class="bom" placeholder="age" required>
+                               <input type="text" name="health" class="bom" placeholder="health" required>
+                               <select class="bom">
+                                   <option value="">Choose location</option>
+                                   <option value="Zone A">Zone A</option>
+                                   <option value="NR Quadurant">NR Quadurant.</option>
+                                   <option value="Near the river">Near the river</option>
+                               </select>
+                               <button type="submit" class="btn-success">ADD</button>
                            </form>
 
                        </section>

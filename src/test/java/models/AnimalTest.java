@@ -52,21 +52,21 @@ public class AnimalTest {
 
     @Test
     public void save_CorrectlyIntoDataBase(){
-        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
+        Animal testAnimal = new Animal( "Tiger", "mammal", "young", "wekahapa", "wekahapa");
         assertEquals(false, Animal.all().equals(testAnimal));
     }
 
     @Test
     public void findById_returnAnimalWithSameId_secondAnimal(){
-        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
-        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
+        Animal testAnimal = new Animal( "Tiger", "mammal", "young", "wekahapa", "wekahapa");
+        Animal testAnimal1 = new Animal( "Gazelle", "animal", "young", "healthy", "ZONE A");
         assertEquals(null,testAnimal.findById(testAnimal1.getId()));
     }
 
     @Test
     public void equals_returnsTrueIfAnimalsAreSme(){
-        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
-        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
+        Animal testAnimal = new Animal( "Tiger", "mammal", "young", "wekahapa", "wekahapa");
+        Animal testAnimal1 = new Animal( "Gazelle", "animal", "young", "healthy", "ZONE A");
         assertEquals(false,testAnimal.equals(testAnimal1));
     }
 
@@ -79,7 +79,7 @@ public class AnimalTest {
     @Test
     public void all_returnsAllInstancesOfAnimals_true(){
         Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
-        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
+        Animal testAnimal1 = new Animal( "Gazelle", "animal", "young", "healthy", "ZONE A");
         assertEquals(false,Animal.all().equals(testAnimal));
         assertEquals(false, Animal.all().equals( testAnimal1));
     }
@@ -100,8 +100,8 @@ public class AnimalTest {
 
     @Test
     public void update_CorrectlyIntoDataBase(){
-        Animal testAnimal = new Animal("Tiger", "mammal", "young", "wekahapa", "wekahapa");
-        Animal testAnimal1 = new Animal("Gazelle", "animal", "young", "healthy", "ZONE A");
+        Animal testAnimal = new Animal( "Tiger", "mammal", "young", "wekahapa", "wekahapa");
+        Animal testAnimal1 = new Animal( "Gazelle", "animal", "young", "healthy", "ZONE A");
         assertEquals(false,Animal.all().equals(0));
 //        assertEquals(Animal.all().get(0), testAnimal1);
     }
