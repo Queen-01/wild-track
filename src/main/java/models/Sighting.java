@@ -75,6 +75,7 @@ public class Sighting implements SightingInterface {
             String sql = "INSERT INTO sightings (animals_id, rangername, location, animal_type, date) VALUES (:animals_id," +
                     " " +
                     ":rangername, :location, :animal_type :date,)";
+            con.getJdbcConnection().setAutoCommit(false);
             this.id = (int) con.createQuery(sql,true)
                     .addParameter("animals_id", this.animals_id)
                     .addParameter("rangername", this.rangername)

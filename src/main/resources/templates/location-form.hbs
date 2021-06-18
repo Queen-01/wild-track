@@ -6,10 +6,16 @@
 
     <p>Add location here:</p>
 
-    <form action="/locations" method="post">
+    <form action="/loc/new" method="post">
         <div class="form-group">
-            <label for="name">Location Name</label>
-            <input id="name" name="name" type="text" class="form-control">
+            <select class="bom" id='location' name='location' type='text'>
+                <option class="bom" value="" disabled selected>Select a Location</option>
+                <option class="bom" value="">ZONE A</option>
+                <option class="bom" value="">Near the river</option>
+                <option class="bom" value="">NE Quadarant</option>
+            </select>
+            <label for="date" class="bom">Time</label>
+            <input type="date" class="bom" name="date" required>
         </div>
         <button type="submit" class="btn btn-dark-green">Add Location</button>
     </form>

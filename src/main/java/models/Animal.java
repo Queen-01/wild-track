@@ -18,7 +18,7 @@ public class Animal implements AnimalInterface {
     private String location;
     private String age;
     
-    public Animal(String name, String type, String age, String health, String location){
+    public Animal(int id, String name, String type, String age, String health, String location){
         this.name = name;
         this.type = Animal_type;
         this.id = id;

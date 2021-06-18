@@ -5,7 +5,7 @@
     <h1 class="mob">All sightings</h1>
 
     <div class="container">
-    {{#each sightings}}
+    {{#if sightings}}
 
             <h6 class="font-weight-bold indigo-text py-2">Sighted By: {{animals_id}}</h6>
             <h6 class="font-weight-bold indigo-text py-2">Location: {{sightings_location}}</h6>
@@ -16,7 +16,7 @@
                 <a href="/sightings/{{id}}/delete"><button class="btn btn-danger">Delete sighting</button></a>
             </form>
         </div>
-    {{/each}}
+    {{/if}}
     </div>
 
 

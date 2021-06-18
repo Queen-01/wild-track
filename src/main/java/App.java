@@ -1,12 +1,10 @@
+import static java.lang.Integer.reverse;
 import static spark.Spark.*;
 
 import java.util.Map;
 import java.util.HashMap;
 
-import models.Animal;
-import models.Endangered;
-import models.Location;
-import models.Ranger;
+import models.*;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -43,14 +41,15 @@ public class App {
 
         post("/animal/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int id =Integer.parseInt(req.queryParams("id"));
+            int id = reverse(0);
             String name = req.queryParams("name");
             String type = req.queryParams("type");
             String age = req.queryParams("age");
             String health = req.queryParams("health");
             String location = req.queryParams("location");
-            Animal newAnimal = new Animal(name, type, age, health, location);
+            Animal newAnimal = new Animal(id,name, type, age, health, location);
             newAnimal.save();
+            model.put("animals", Animal.Animal_type);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -59,22 +58,23 @@ public class App {
             return new ModelAndView(model, "endan-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/endanger", (req, res) -> {
+        post("/endangered/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int id = parseInt(req.queryParams("id"));
+            int id = reverse(0);
             String name = req.queryParams("name");
             String type = req.queryParams("type");
             String age = req.queryParams("age");
             String health = req.queryParams("health");
             String location = req.queryParams("location");
-            Animal newAnimal = new Animal( name, type, age, health, location);
+            Animal newAnimal = new Animal(id, name, type, age, health, location);
             newAnimal.save();
+            model.put("animals", Animal.Animal_type);
             return new ModelAndView(model, "success2.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            model.put("animals", Animal.Animal_type);
+            model.put("sighting", Sighting.all());
             return new ModelAndView(model, "sight.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -87,10 +87,40 @@ public class App {
             return new ModelAndView(model, "sight-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/location", (request, response) -> {
+        post("/sight/new" , (req,res) ->{
             Map<String, Object> model = new HashMap<>();
-            model.put("animals", Animal.Animal_type);
+            Integer id = reverse(0);
+            String location = req.queryParams("location");
+            String rangername = req.queryParams("rangername");
+            String animal_type = req.queryParams("animal_type");
+            Sighting newSighting =new Sighting (id,location,rangername,animal_type);
+            newSighting.save();
+//            model.put("sightings", Sighting.all());
+            return new ModelAndView(model,"success-sight.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/locations", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("location", Location.all());
             return new ModelAndView(model, "location.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/locations/new", (req,res) ->{
+            Map<String, Object> model = new HashMap<>();
+            model.put("location", Location.all());
+            return new ModelAndView(model,"location-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/loc/new" , (req,res) ->{
+            Map<String, Object> model = new HashMap<>();
+//            Integer id = reverse(0);
+            String sightings_location = req.queryParams("sightings_location");
+//            String rangername = req.queryParams("rangername");
+//            String animal_type = req.queryParams("animal_type");
+            Location newLocation =new Location (sightings_location);
+            newLocation.save();
+//            model.put("sightings", Sighting.all());
+            return new ModelAndView(model,"loc-success.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }

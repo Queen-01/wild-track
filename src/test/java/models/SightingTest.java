@@ -53,12 +53,32 @@ public class SightingTest {
 //        assertEquals(null, sighting);
 //        assertEquals(null, sightingTwo);
     }
+
     @Test
-    public void equals_returnsTrueIfSightingsAreSame(){
+    public void returnSightingWithLocation(){
+        Sighting sighting = new Sighting(1,"Queen", "Near the river", "animal");
+        assertEquals("Near the river",sighting.getLocationId());
+    }
+
+    @Test
+    public void equals_returnsTrueIfSightingAreSame(){
         Sighting sighting = new Sighting(1,"Queen","Near the river ","animal");
         Sighting sightingTwo = new Sighting(2,"Tiren","ZONE A","animal");
         assertEquals(true,sighting.equals(sightingTwo));
     }
+
+    @Test
+    public void returnSightingwithRangerName(){
+        Sighting sighting = new Sighting(1, "Queen", "Near the river", "animal");
+        assertEquals("Queen", sighting.getRangerName());
+    }
+
+    @Test
+    public void returnSightingWithAnimalType(){
+        Sighting sighting = new Sighting(1,"Queen", "Near the sighting", "animal");
+        assertEquals("animal", sighting.getAnimalType());
+    }
+
     @Test
     public void save_returnsTrueIfNamesAreTheSame() throws Exception{
         Sighting sighting = new Sighting(1,"Queen","Near the river ","animal");

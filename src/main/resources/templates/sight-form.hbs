@@ -4,10 +4,8 @@
 {{#partial "content"}}
     <h1 class="mob">Add a Sighting</h1>
 
-    <form action="/sightings/new" method="post">
+    <form action="/sight/new" method="post">
         <div class="form-group">
-            <label for="animals_id" class="bom">Animal</label>
-            <input class="bom" name="animals_id" placeholder="Animal" required>
                 {{#each animals}}
                     <option value="{{animals.name}}">Name</option>
                 {{/each}}
@@ -21,9 +19,9 @@
             <label for="location" class="bom">Location</label>
             <select class="bom" id='location' name='location' type='text'>
                 <option class="bom" value="" disabled selected>Select a Location</option>
-                <option class="bom" value="">Zone A</option>
+                <option class="bom" value="">ZONE A</option>
                 <option class="bom" value="">Near the river</option>
-                <option class="bom" value="">NR Quadarant</option>
+                <option class="bom" value="">NE Quadarant</option>
             </select>
         </div>
         <div class="form-group">
