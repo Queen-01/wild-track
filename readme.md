@@ -21,4 +21,4 @@ Gradle
 View [LIVE] (https://github.com/Queen-01/wild-track.git)
 
 ### License
-This project is under the  [MIT](License) license
+This project is under the  [MIT](license) license
